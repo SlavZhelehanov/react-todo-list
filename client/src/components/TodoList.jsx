@@ -13,6 +13,21 @@ export default function TodoList() {
         }).catch(err => console.log(err.message))
     }, []);
 
+    function statusChangeHandler(todoId) {
+        setTodos(prev => prev.map(todo => {
+            if (todo._id === todoId) {
+                todo.isCompleted = !todo.isCompleted;
+                // fetch(`http://localhost:3030/jsonstore/todos/${todoId}`, {
+                //     method: "put",
+                //     headers: { "Content-Type": "application/json" },
+                //     body: JSON.stringify(todo)
+                // }).catch(err => console.log(err.message));
+            }
+
+            return todo;
+        }));
+    }
+
     return (
         <>
             <section className="todo-list-container">
@@ -43,7 +58,7 @@ export default function TodoList() {
                         </thead>
                         <tbody>
                             {/* <!-- Todo item --> */}
-                            {todos.map(todo => <TodoListItem key={todo._id} todo={todo} />)}
+                            {todos.map(todo => <TodoListItem key={todo._id} todo={todo} onStatusChange={statusChangeHandler} />)}
                         </tbody>
                     </table>
                 </div>

@@ -1,4 +1,4 @@
-export default function TodoListItem({ todo }) {
+export default function TodoListItem({ todo, onStatusChange }) {
     const changeClassName = todo.isCompleted ? "todo is-completed" : "todo";
 
     return (
@@ -6,7 +6,7 @@ export default function TodoListItem({ todo }) {
             <td>{todo.text}</td>
             <td>{todo.isCompleted ? "Complete" : "Incomplete"}</td>
             <td className="todo-action">
-                <button className="btn todo-btn">Change status</button>
+                <button onClick={() => onStatusChange(todo._id)} className="btn todo-btn">Change status</button>
             </td>
         </tr>
     );
