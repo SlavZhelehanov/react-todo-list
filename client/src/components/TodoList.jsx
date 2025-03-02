@@ -51,17 +51,16 @@ export default function TodoList() {
             isCompleted: false
         };
 
-        setTodos(prev => [...prev, newTodo]);
-        newTodoText.value = "";
+        setTodos(prev => [...prev, newTodo]);        
 
-        // fetch("http://localhost:3030/jsonstore/todos", {
-        //     method: "post",
-        //     headers: { "Content-Type": "application/json" },
-        //     body: JSON.stringify(newTodo)
-        // }).then(res => res.json()).then(data => {
-        //     setTodos(prev => [...prev, data]);
-        //     document.getElementById("newTodo").value = "";
-        // }).catch(err => console.log(err.message));
+        fetch("http://localhost:3030/jsonstore/todos", {
+            method: "post",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(newTodo)
+        }).then(res => res.json()).then(data => {
+            setTodos(prev => [...prev, data]);
+            newTodoText.value = "";
+        }).catch(err => console.log(err.message));
     }
 
     return (
