@@ -29,37 +29,22 @@ export default function TodoList() {
         }));
     }
 
-    function generateRandomString(length) {
-        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'; // Character set to choose from
-        let result = '';
-        
-        for (let i = 0; i < length; i++) {
-          const randomIndex = Math.floor(Math.random() * characters.length);
-          result += characters[randomIndex];
-        }
-        
-        return result;
-      }
-
     function handleAddingNewTodo(e) {
         const newTodoText = document.getElementById("newTodo");
 
         if (!newTodoText.value) return;
 
         const newTodo = {
-            _id: generateRandomString(8),
             text: newTodoText.value,
             isCompleted: false
-        };
-
-        setTodos(prev => [...prev, newTodo]);        
+        };        
 
         fetch("http://localhost:3030/jsonstore/todos", {
             method: "post",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(newTodo)
         }).then(res => res.json()).then(data => {
-            setTodos(prev => [...prev, data]);
+            setTodos(prev => [...prev, data]);            
             newTodoText.value = "";
         }).catch(err => console.log(err.message));
     }
