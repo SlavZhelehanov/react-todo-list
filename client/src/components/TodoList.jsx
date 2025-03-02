@@ -28,13 +28,51 @@ export default function TodoList() {
         }));
     }
 
+    function generateRandomString(length) {
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'; // Character set to choose from
+        let result = '';
+        
+        for (let i = 0; i < length; i++) {
+          const randomIndex = Math.floor(Math.random() * characters.length);
+          result += characters[randomIndex];
+        }
+        
+        return result;
+      }
+
+    function handleAddingNewTodo(e) {
+        const newTodoText = document.getElementById("newTodo");
+
+        if (!newTodoText.value) return;
+
+        const newTodo = {
+            _id: generateRandomString(8),
+            text: newTodoText.value,
+            isCompleted: false
+        };
+
+        setTodos(prev => [...prev, newTodo]);
+        newTodoText.value = "";
+
+        // fetch("http://localhost:3030/jsonstore/todos", {
+        //     method: "post",
+        //     headers: { "Content-Type": "application/json" },
+        //     body: JSON.stringify(newTodo)
+        // }).then(res => res.json()).then(data => {
+        //     setTodos(prev => [...prev, data]);
+        //     document.getElementById("newTodo").value = "";
+        // }).catch(err => console.log(err.message));
+    }
+
     return (
         <>
             <section className="todo-list-container">
                 <h1>Todo List</h1>
 
                 <div className="add-btn-container">
-                    <button className="btn">+ Add new Todo</button>
+                    <input type="text" name="newTodo" id="newTodo" placeholder="TODO..." />
+                    <button onClick={handleAddingNewTodo} className="btn">+ Add new Todo</button>
+                    <hr />
                 </div>
 
                 <div className="table-wrapper">

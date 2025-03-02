@@ -103,8 +103,20 @@ body {
 }
 
 .add-btn-container {
-    text-align: right;
-    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+    /* This arranges children (input and button) vertically */
+    align-items: flex-start;
+    /* Aligns items to the start of the container */
+    justify-content: center;
+    margin: 10px;
+}
+
+.add-btn-container input {
+    margin-bottom: 10px;
+    width: 100%;
+    height: 40px;
+    /* Optional: adds space between input and button */
 }
 
 .add-btn-container button {
