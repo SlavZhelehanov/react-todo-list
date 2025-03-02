@@ -17,11 +17,12 @@ export default function TodoList() {
         setTodos(prev => prev.map(todo => {
             if (todo._id === todoId) {
                 todo.isCompleted = !todo.isCompleted;
-                // fetch(`http://localhost:3030/jsonstore/todos/${todoId}`, {
-                //     method: "put",
-                //     headers: { "Content-Type": "application/json" },
-                //     body: JSON.stringify(todo)
-                // }).catch(err => console.log(err.message));
+
+                fetch(`http://localhost:3030/jsonstore/todos/${todoId}`, {
+                    method: "put",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(todo)
+                }).catch(err => console.log(err.message));
             }
 
             return todo;
